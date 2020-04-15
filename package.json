@@ -1,0 +1,37 @@
+{
+  "name": "v-money-spinner",
+  "version": "0.1.0",
+  "description": "A component with number input spinner and currency mask.",
+  "main": "dist/v-money-spinner.js",
+  "scripts": {
+    "build": "poi --prod --no-html",
+    "build:docs": "poi --prod ./src/docs/index.js -d ./docs/",
+    "dev": "poi --serve --html.template ./src/docs/index.html ./src/docs/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joserick/v-money-spinner.git"
+  },
+  "keywords": [
+    "money",
+    "spinner",
+    "mask",
+    "currency",
+    "vue",
+    "input",
+    "bootstrap"
+  ],
+  "author": "Jose Erick Carreon Gomez <joserick.92@gmail.com> (https://github.com/joserick/v-money-spinner)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joserick/v-money-spinner/issues"
+  },
+  "homepage": "https://github.com/joserick/v-money-spinner#readme",
+  "devDependencies": {
+    "v-money": "git+https://github.com/joserick/v-money.git",
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11",
+    "poi": "^12.7.5"
+  }
+}
