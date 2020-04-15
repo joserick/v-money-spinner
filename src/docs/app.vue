@@ -61,7 +61,7 @@
 							<span class="mx-auto">Minimum</span>
 						</label>
 					</div>
-					<input id="min" v-model="min" type="number" class="form-control w-50" placeholder="-infinite">
+					<input id="min" v-model.number="min" type="number" class="form-control w-50" placeholder="-infinite">
 				</div>
 				<div class="input-group col-12 col-md-4">
 					<div class="input-group-prepend w-50">
@@ -69,7 +69,7 @@
 							<span class="mx-auto">Maximum</span>
 						</label>
 					</div>
-					<input id="max" v-model="max" type="number" class="form-control w-50" placeholder="infinite">
+					<input id="max" v-model.number="max" type="number" class="form-control w-50" placeholder="infinite">
 				</div>
 				<div class="input-group col-12 col-md-4">
 					<div class="input-group-prepend w-50">
@@ -92,7 +92,7 @@
 							<span class="mx-auto">Prefix</span>
 						</label>
 					</div>
-					<input id="prefix" v-model="prefix" type="text" class="form-control w-50" placeholder="$">
+					<input id="prefix" v-model="prefixFormat" type="text" class="form-control w-50" placeholder="$">
 				</div>
 				<div class="input-group col-12 col-md-4">
 					<div class="input-group-prepend w-50">
@@ -100,7 +100,7 @@
 							<span class="mx-auto">Suffix</span>
 						</label>
 					</div>
-					<input id="suffix" v-model="suffix" type="text" class="form-control w-50" placeholder="MXN">
+					<input id="suffix" v-model="suffixFormat" type="text" class="form-control w-50" placeholder="MXN">
 				</div>
 				<div class="input-group col-12 col-md-4">
 					<div class="input-group-prepend w-50">
@@ -123,7 +123,7 @@
 							<span class="mx-auto">Decimal</span>
 						</label>
 					</div>
-					<input id="decimal" v-model="decimal" type="text" class="form-control w-50" placeholder=".">
+					<input id="decimal" v-model="decimalFormat" type="text" class="form-control w-50" placeholder=".">
 				</div>
 				<div class="input-group col-12 col-md-4">
 					<div class="input-group-prepend w-50">
@@ -131,7 +131,7 @@
 							<span class="mx-auto" style="font-size: 0.8rem">Thousands</span>
 						</label>
 					</div>
-					<input id="thousands" v-model="thousands" type="text" class="form-control w-50" placeholder=",">
+					<input id="thousands" v-model="thousandsFormat" type="text" class="form-control w-50" placeholder=",">
 				</div>
 				<div class="input-group col-12 col-md-4">
 					<div class="input-group-prepend w-50">
@@ -176,6 +176,13 @@
 				</div>
 			</div>
 		</div>
+		<div class="jumbotron text-center mt-5">
+			<div class="container">
+				<h1 class="display-3">More Information</h1>
+				<p>If you require more information for installation and configuration you can visit our repository in:</p>
+				<p><a class="btn btn-primary btn-lg" href="https://github.com/joserick/v-money-spinner" role="button">https://github.com/joserick/v-money-spinner »</a></p>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -199,7 +206,7 @@
 				amend: false,
 				blank: false,
 				masked: true,
-				invalidMessage: 'Min is -10 and Max is 50',
+				invalidMessage: 'Min is -10 and Max is 200',
 
 				// Docs
 				inputClass: 'form-control-lg',
@@ -207,7 +214,7 @@
 			}
 		},
 		mounted: function () {
-      $('[data-toggle="tooltip"]').tooltip()
+	  $('[data-toggle="tooltip"]').tooltip()
 		},
 		computed:{
 			stepDesimal:{
@@ -241,6 +248,38 @@
 					if (!isNaN(parseInt(v))) {
 						this.precision = parseInt(v)
 					}
+				}
+			},
+			prefixFormat: {
+				get: function () {
+					return this.prefix
+				},
+				set: function (v) {
+					this.prefix = v.replace(/\d+$/, '')
+				}
+			},
+			suffixFormat: {
+				get: function () {
+					return this.suffix
+				},
+				set: function (v) {
+					this.suffix = v.replace(/\d*/, '')
+				}
+			},
+			decimalFormat: {
+				get: function () {
+					return this.decimal
+				},
+				set: function (v) {
+					this.decimal = v.replace(/\d/g, '')
+				}
+			},
+			thousandsFormat: {
+				get: function () {
+					return this.thousands
+				},
+				set: function (v) {
+					this.thousands = v.replace(/\d/g, '')
 				}
 			}
 		},
