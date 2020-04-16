@@ -3,7 +3,8 @@ import VMoneySpinnerAmount from './money_spinner_amount.vue'
 const version = process.env.VERSION
 
 export {
-  version
+	VMoneySpinner,
+	version
 }
 export default {
 	install(Vue, globalOptions) {
