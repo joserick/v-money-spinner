@@ -40,6 +40,10 @@
 				type: Boolean,
 				default: () => defaults.spinner
 			},
+			step: {
+			  type: Number,
+			  default: () => defaults.step
+			},
 			bootstrap: {
 				type: Boolean,
 				default: () => defaults.bootstrap
@@ -123,9 +127,9 @@
 				}else if (this.amount < this.$refs.money.min) {
 					this.amount = this.$refs.money.min.toFixed(this.$refs.money.precision)
 				}else if (plus_minus && this.amount < this.$refs.money.max) {
-					this.amount = Math.min(this.amount + this.$refs.money.step, this.$refs.money.max).toFixed(this.$refs.money.precision);
+					this.amount = Math.min(this.amount + this.step, this.$refs.money.max).toFixed(this.$refs.money.precision);
 				}else if (!plus_minus && this.amount > this.$refs.money.min){
-					this.amount = Math.max(this.amount - this.$refs.money.step, this.$refs.money.min).toFixed(this.$refs.money.precision);
+					this.amount = Math.max(this.amount - this.step, this.$refs.money.min).toFixed(this.$refs.money.precision);
 				}
 			},
 			setAmountPlus: function (event) {
@@ -135,7 +139,9 @@
 				this.setAmount(false)
 			},
 			updateEventBus: function (new_val) {
-				this.$eventBus.$emit('money_spinner_amount', new_val)
+				if (this.$eventBus) {
+					this.$eventBus.$emit('money_spinner_amount', new_val)
+				}
 				return new_val
 			}
 		},

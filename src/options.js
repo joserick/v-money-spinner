@@ -1,7 +1,7 @@
 export default {
 	bootstrap: true,
 	spinner: true,
-	amount: 0,
+	step: 1,
 	id: 'v-money-spinner',
 	label: 'Vuejs Money Spinner',
 	labelClass: '',
