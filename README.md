@@ -1,6 +1,11 @@
 # Welcome to V-Money-Spinner
 V-Money-Spinner is a component which can preset a input spinner with mask currency and style bootstrap, this latter can be disabled.
 ![enter image description here](https://joserick.com/v_money_spinner/v_money_spinner.gif)
+
+## [Demo](https://joserick.com/v_money_spinner/)
+
+Enjoy :smile:
+
 ## Installation
 ```
 npm i v-money-spinner
@@ -9,10 +14,6 @@ npm i v-money-spinner
 import MoneySpinner from 'v-money-spinner'
 Vue.use(MoneySpinner)
 ```
-
-## [Demo](https://joserick.com/v_money_spinner/)
-
-Enjoy :smile:
 
 ## Use
 ```html
