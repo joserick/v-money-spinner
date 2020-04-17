@@ -1,7 +1,7 @@
 {
   "name": "v-money-spinner",
   "version": "0.1.0",
-  "description": "A component with number input spinner and currency mask.",
+  "description": "A component with input spinner and currency mask.",
   "main": "dist/v-money-spinner.js",
   "scripts": {
     "build": "poi --prod --no-html",
@@ -31,6 +31,9 @@
     "url": "https://github.com/joserick/v-money-spinner/issues"
   },
   "homepage": "https://github.com/joserick/v-money-spinner#readme",
+  "peerDependencies": {
+    "vue": "^2.6.11"
+  },
   "devDependencies": {
     "v-money": "git+https://github.com/joserick/v-money.git",
     "vue": "^2.6.11",
