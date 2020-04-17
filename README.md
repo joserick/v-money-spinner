@@ -10,9 +10,9 @@ import MoneySpinner from 'v-money-spinner'
 Vue.use(MoneySpinner)
 ```
 
-## Documentation
+## [Demo](https://joserick.com/v_money_spinner/)
 
-If you want more information about V-Money-Spinner click [**here**.](https://joserick.com/v_money_spinner/)
+Enjoy :smile:
 
 ## Use
 ```html
