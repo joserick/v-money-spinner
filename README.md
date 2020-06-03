@@ -68,6 +68,7 @@ Vue.use(MoneySpinner)
 | masked         | Boolean | false                   | If the component output should include the mask or not      |
 | allowBlank     | Boolean | false                   | If the field can start blank and be cleared out by user     |
 | label          | String  | ""                      | Text for label tag                                          |
+| align          | String  | "center"                | Change by "left" or "right" to align the text in the input  |
 
 ## Classes (style css)
 | Classes             | Description                                                                                |
