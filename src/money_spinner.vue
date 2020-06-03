@@ -6,7 +6,8 @@
 				<button type="button" v-on:click="setAmountMinus"
 					v-bind:class="[{'btn btn-outline-secondary font-weight-bold': bootstrap}, prependClass]">-</button>
 			</div>
-			<money ref="money" :id="id" v-bind:class="[{'form-control text-center': bootstrap}, inputClass]" 
+			<money ref="money" :id="id"
+				v-bind:class="[{'form-control': bootstrap}, bootstrap ? 'text-' + align : '', inputClass]"
 				:minMaxMessage="invalidMessage" v-model="amount" v-bind="$attrs"></money>
 			<div v-if="spinner" v-bind:class="[{'input-group-append': bootstrap}, wrapperAppendClass]">
 				<button type="button" v-on:click="setAmountPlus"
@@ -47,6 +48,10 @@
 			bootstrap: {
 				type: Boolean,
 				default: () => defaults.bootstrap
+			},
+			align: {
+				type: String,
+				default: () => defaults.align
 			},
 			label: {
 				type: [Boolean, String],
