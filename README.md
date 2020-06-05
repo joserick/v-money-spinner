@@ -70,6 +70,16 @@ Vue.use(MoneySpinner)
 | label          | String  | ""                      | Text for label tag                                          |
 | align          | String  | "center"                | Change by "left" or "right" to align the text in the input  |
 
+## Events
+| Event          | Parameters                         | Description                                                |
+|----------------|------------------------------------|------------------------------------------------------------|
+| change         | unformatted, formatted, old_amount | Fires when the input value change                          |
+| plus           | unformatted, formatted             | Fires when user click on the plus button                   |
+| minus          | unformatted, formatted             | Fires when user click on the minus button                  |
+| positive       | unformatted, formatted, old_amount | Fires when the amount change to positive                   |
+| negative       | unformatted, formatted, old_amount | Fires when the amount change to negative                   |
+| exceeded       | unformatted, formatted, min, max   | Fires when the amount exceeded the min or max              |
+
 ## Classes (style css)
 | Classes             | Description                                                                                |
 |---------------------|--------------------------------------------------------------------------------------------|

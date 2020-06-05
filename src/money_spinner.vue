@@ -97,17 +97,24 @@
 		data () {
 			return {
 				amount: 0,
-				invalid: false
+				invalid: false,
+				is_negative: false,
 			}
 		},
 		created() {
 			if (this.value) {
 				this.amount = this.value;
 			}
+			if (parseFloat(this.amount) > 0) {
+				this.is_negative = false
+			}else{
+				this.is_negative = true
+			}
 		},
 		mounted() {
 			this.updateEventBus(this.$refs.money.masked ? this.$refs.money.innerValue : this.amount)
-			this.$watch("$refs.money.innerValue",(new_val) => {
+			this.$watch("$refs.money.innerValue",(new_val, old_val) => {
+				this.determineSignEvent(new_val, old_val)
 				this.updateEventBus(this.amount)
 			});
 			this.$watch("$refs.money.masked", (new_val) => {
@@ -121,11 +128,12 @@
 					this.invalid = true
 				}
 			});
+
 		},
 		methods: {
 			setAmount: function (plus_minus) {
 				if (typeof this.amount === 'string' || this.amount instanceof String) {
-					this.amount = this.$refs.money.unformat(this.amount)
+					this.amount = this.unformat(this.amount)
 				}
 				if (this.amount > this.$refs.money.max){
 					this.amount = this.$refs.money.max.toFixed(this.$refs.money.precision)
@@ -136,27 +144,61 @@
 				}else if (!plus_minus && this.amount > this.$refs.money.min){
 					this.amount = Math.max(this.amount - this.step, this.$refs.money.min).toFixed(this.$refs.money.precision);
 				}
+				return this.amount;
+			},
+			sendEventAmount : function (type, plus_minus) {
+				this.$emit(type, this.setAmount(plus_minus), this.format(this.amount))
 			},
 			setAmountPlus: function (event) {
-				this.setAmount(true)
+				this.sendEventAmount('plus', true)
 			},
 			setAmountMinus: function (event) {
-				this.setAmount(false)
+				this.sendEventAmount('minus', false)
 			},
 			updateEventBus: function (new_val) {
 				if (this.$eventBus) {
 					this.$eventBus.$emit('money_spinner_amount', new_val)
 				}
 				return new_val
+			},
+			determineSignEvent: function (new_val, old_val) {
+				let val_format = this.format(new_val)
+				let val_unformat = this.unformat(new_val)
+
+				this.$emit('change', val_unformat, val_format, old_val)
+
+				if (val_unformat > 0 && this.is_negative) {
+					this.is_negative = false
+					this.$emit('positive', val_unformat, val_unformat)
+				}else if (val_unformat < 0 && !this.is_negative) {
+					this.is_negative = true
+					this.$emit('negative', val_unformat, val_unformat)
+				}
+			},
+			unformat: function (val) {
+				return this.$refs.money.unformat(val)
+			},
+			format: function (val) {
+				return this.$refs.money.format(val)
 			}
 		},
 		watch: {
-			amount: function (new_val, oldVal) {
-				if (new_val === oldVal) return
+			amount: function (new_val, old_val) {
+				if (new_val === old_val) return
 				this.$emit('input', new_val)
 			},
 			value: function (new_val) {
 				this.amount = new_val
+			},
+			invalid: function (new_val, old_val) {
+				if (new_val !== old_val && new_val){
+					this.$emit('exceeded',
+						this.unformat(this.amount),
+						this.format(this.amount),
+						this.$refs.money.min,
+						this.$refs.money.max,
+					)
+				}
 			}
 		}
 	}
