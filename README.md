@@ -6,6 +6,8 @@ V-Money-Spinner is a component which can preset a input spinner with mask curren
 
 Enjoy :smile:
 
+Don't forget to support us with a star: [![Star on GitHub](https://img.shields.io/github/stars/joserick/v-money-spinner?style=social)](https://github.com/joserick/v-money-spinner/stargazers)
+
 ## Installation
 ```
 npm i v-money-spinner
