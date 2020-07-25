@@ -6,9 +6,9 @@
 				<button type="button" v-on:click="setAmountMinus"
 					v-bind:class="[{'btn btn-outline-secondary font-weight-bold': bootstrap}, prependClass]">-</button>
 			</div>
-			<money ref="money" :id="id"
+			<money ref="money" :id="id" :minMaxMessage="invalidMessage" v-model="amount"
 				v-bind:class="[{'form-control': bootstrap}, bootstrap ? 'text-' + align : '', inputClass]"
-				:minMaxMessage="invalidMessage" v-model="amount" v-bind="$attrs"></money>
+				v-bind="$attrs"></money>
 			<div v-if="spinner" v-bind:class="[{'input-group-append': bootstrap}, wrapperAppendClass]">
 				<button type="button" v-on:click="setAmountPlus"
 					v-bind:class="[{'btn btn-outline-success rounded-right font-weight-bold': bootstrap}, appendClass]">+</button>
@@ -118,8 +118,7 @@
 				this.updateEventBus(this.amount)
 			});
 			this.$watch("$refs.money.masked", (new_val) => {
-				this.$emit('input', this.updateEventBus(
-					this.$refs.money[new_val ? 'format' : 'unformat'](this.amount)))
+				this.$emit('input', this.$refs.money[new_val ? 'format' : 'unformat'](this.amount))
 			});
 			this.$watch("$refs.money.pattern", (new_val) => {
 				if (new_val == '.*') {
@@ -128,23 +127,25 @@
 					this.invalid = true
 				}
 			});
-
 		},
 		methods: {
 			setAmount: function (plus_minus) {
+				let amount = this.amount
 				if (typeof this.amount === 'string' || this.amount instanceof String) {
-					this.amount = this.unformat(this.amount)
+					amount = this.unformat(this.amount)
 				}
-				if (this.amount > this.$refs.money.max){
-					this.amount = this.$refs.money.max.toFixed(this.$refs.money.precision)
-				}else if (this.amount < this.$refs.money.min) {
-					this.amount = this.$refs.money.min.toFixed(this.$refs.money.precision)
-				}else if (plus_minus && this.amount < this.$refs.money.max) {
-					this.amount = Math.min(this.amount + this.step, this.$refs.money.max).toFixed(this.$refs.money.precision);
-				}else if (!plus_minus && this.amount > this.$refs.money.min){
-					this.amount = Math.max(this.amount - this.step, this.$refs.money.min).toFixed(this.$refs.money.precision);
+
+				if (amount > this.$refs.money.max){
+					amount = this.$refs.money.max.toFixed(this.$refs.money.precision)
+				}else if (amount < this.$refs.money.min) {
+					amount = this.$refs.money.min.toFixed(this.$refs.money.precision)
+				}else if (plus_minus && amount < this.$refs.money.max) {
+					amount = Math.min(amount + this.step, this.$refs.money.max).toFixed(this.$refs.money.precision);
+				}else if (!plus_minus && amount > this.$refs.money.min){
+					amount = Math.max(amount - this.step, this.$refs.money.min).toFixed(this.$refs.money.precision);
 				}
-				return this.amount;
+
+				return this.amount = this.format(amount)
 			},
 			sendEventAmount : function (type, plus_minus) {
 				this.$emit(type, this.setAmount(plus_minus), this.format(this.amount))
@@ -157,9 +158,8 @@
 			},
 			updateEventBus: function (new_val) {
 				if (this.$eventBus) {
-					this.$eventBus.$emit('money_spinner_amount', new_val)
+					this.$eventBus.$emit(this.id, this.unformat(new_val))
 				}
-				return new_val
 			},
 			determineSignEvent: function (new_val, old_val) {
 				let val_format = this.format(new_val)
