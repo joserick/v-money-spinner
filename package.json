@@ -32,12 +32,12 @@
   },
   "homepage": "https://github.com/joserick/v-money-spinner#readme",
   "peerDependencies": {
-    "vue": "^2.6.11"
+    "vue": "^2.6.12"
   },
   "devDependencies": {
-    "poi": "^12.8.0",
+    "poi": "^12.10.2",
     "v-money": "git+https://github.com/joserick/v-money.git",
-    "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.11"
+    "vue": "^2.6.12",
+    "vue-template-compiler": "^2.6.12"
   }
 }
