@@ -1,6 +1,6 @@
 {
   "name": "v-money-spinner",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A component with input spinner and currency mask.",
   "main": "dist/v-money-spinner.js",
   "scripts": {
