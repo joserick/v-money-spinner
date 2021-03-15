@@ -181,7 +181,7 @@
 		<br>
 		<div class="bg-light border-top py-5">
 			<div class="container">
-				<h1 class="text-center">Multiples Amount Format</h1>
+				<h1 class="text-center">Multiple Amount Formats</h1>
 				<br>
 				<div class="row">
 					<div class="col-8 offset-2 text-center">
