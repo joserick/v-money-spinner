@@ -1,13 +1,12 @@
 {
   "name": "v-money-spinner",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A component with input spinner and currency mask.",
   "main": "dist/v-money-spinner.js",
   "scripts": {
     "build": "poi --prod --no-html",
     "build:docs": "poi --prod ./src/docs/index.js -d ./docs/ --html.template ./src/docs/index.html",
     "dev": "poi --serve --html.template ./src/docs/index.html ./src/docs/index.js",
-    "preinstall": "npx npm-force-resolutions",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "resolutions": {
