@@ -1,17 +1,17 @@
 export default {
-	bootstrap: true,
+	id: 'v-money-spinner',
+	template: 'bootstrap',
 	spinner: true,
 	step: 1,
-	id: 'v-money-spinner',
-	label: '',
 	align: 'center',
+	label: '',
 	labelClass: '',
-	invalidMessage: '',
 	wrapperClass: '',
 	wrapperGroupClass: '',
 	wrapperPrependClass: '',
 	wrapperAppendClass: '',
 	prependClass: '',
 	appendClass: '',
-	inputClass: ''
+	inputClass: '',
+	invalidClass:''
 }
