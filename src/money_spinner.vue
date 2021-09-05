@@ -1,205 +1,108 @@
 <template>
-	<div v-bind:class="[{'form-group': bootstrap, 'was-validated': bootstrap && invalid}, wrapperClass]">
-		<label v-if="label" v-bind:class="labelClass" :for="id">{{ label }}</label>
-		<div v-bind:class="[{'input-group': bootstrap}, wrapperGroupClass]">
-			<div v-if="spinner" v-bind:class="[{'input-group-prepend': bootstrap}, wrapperPrependClass]">
-				<button type="button" v-on:click="setAmountMinus"
-					v-bind:class="[{'btn btn-outline-secondary font-weight-bold': bootstrap}, prependClass]">-</button>
-			</div>
-			<money ref="money" :id="id" :minMaxMessage="invalidMessage" v-model="amount"
-				v-bind:class="[{'form-control': bootstrap}, bootstrap ? 'text-' + align : '', inputClass]"
-				v-bind="$attrs"></money>
-			<div v-if="spinner" v-bind:class="[{'input-group-append': bootstrap}, wrapperAppendClass]">
-				<button type="button" v-on:click="setAmountPlus"
-					v-bind:class="[{'btn btn-outline-success rounded-right font-weight-bold': bootstrap}, appendClass]">+</button>
-			</div>
-			<div v-if="bootstrap" class="invalid-feedback">
-				{{ invalidMessage }}
-			</div>
+	<div :class="style('wrapperClass')">
+		<label v-if="label" :class="style('labelClass')" :for="id">{{ label }}</label>
+		<div :class="style('wrapperGroupClass')">
+      <button v-if="spinner" type="button" @click="minus"
+        :class="style('prependClass')">-</button>
+			<money ref="money" :id="id" v-bind="vAttrs"
+				:class="[style('inputClass'), template ? 'text-' + align : '']"></money>
+      <button v-if="spinner" type="button" @click="plus"
+        :class="style('appendClass')">+</button>
 		</div>
 	</div>
 </template>
 
 <script>
-	import { Money } from 'v-money'
-	import defaults from './options'
+import { ref, computed, onMounted, watch } from 'vue'
+import { Money, format, unformat } from "v-money3";
+import stylesList from "./styles";
+import defaults from "./validations";
 
-	export default {
-		name: 'money-spinner',
-		components: {Money},
-		inheritAttrs: false,
-		props: {
-			value: {
-				required: false,
-				type: [Number, String]
-			},
-			id: {
-				type: String,
-				default: () => defaults.id
-			},
-			spinner: {
-				type: Boolean,
-				default: () => defaults.spinner
-			},
-			step: {
-			  type: Number,
-			  default: () => defaults.step
-			},
-			bootstrap: {
-				type: Boolean,
-				default: () => defaults.bootstrap
-			},
-			align: {
-				type: String,
-				default: () => defaults.align
-			},
-			label: {
-				type: [Boolean, String],
-				default: () => defaults.label
-			},
-			labelClass: {
-				type: String,
-				default: () => defaults.labelClass
-			},
-			invalidMessage: {
-				type: String,
-				default: () => defaults.invalidMessage
-			},
-			wrapperClass: {
-				type: String,
-				default: () => defaults.wrapperClass
-			},
-			wrapperGroupClass: {
-				type: String,
-				default: () => defaults.wrapperGroupClass
-			},
-			wrapperPrependClass: {
-				type: String,
-				default: () => defaults.wrapperPrependClass
-			},
-			wrapperAppendClass: {
-				type: String,
-				default: () => defaults.wrapperAppendClass
-			},
-			prependClass: {
-				type: String,
-				default: () => defaults.prependClass
-			},
-			appendClass: {
-				type: String,
-				default: () => defaults.appendClass
-			},
-			inputClass: {
-				type: String,
-				default: () => defaults.inputClass
-			}
-		},
-		data () {
-			return {
-				amount: 0,
-				invalid: false,
-				is_negative: false,
-			}
-		},
-		created() {
-			if (this.value) {
-				this.amount = this.value;
-			}
-			if (parseFloat(this.amount) > 0) {
-				this.is_negative = false
-			}else{
-				this.is_negative = true
-			}
-		},
-		mounted() {
-			this.updateEventBus(this.$refs.money.masked ? this.$refs.money.innerValue : this.amount)
-			this.$watch("$refs.money.innerValue",(new_val, old_val) => {
-				this.determineSignEvent(new_val, old_val)
-				this.updateEventBus(this.amount)
-			});
-			this.$watch("$refs.money.masked", (new_val) => {
-				this.$emit('input', this.$refs.money[new_val ? 'format' : 'unformat'](this.amount))
-			});
-			this.$watch("$refs.money.pattern", (new_val) => {
-				if (new_val == '.*') {
-					this.invalid = false
-				}else if (this.invalidMessage) {
-					this.invalid = true
-				}
-			});
-		},
-		methods: {
-			setAmount: function (plus_minus) {
-				let amount = this.amount
-				if (typeof this.amount === 'string' || this.amount instanceof String) {
-					amount = this.unformat(this.amount)
-				}
+export default {
+  name: "money-spinner",
+  components: { Money },
+  inheritAttrs: false,
+  props: defaults,
+  setup(props, { emit, attrs }) {
+    const money = ref()
+    const amount = computed({
+      get(){
+        if (money.value.masked) {
+          return Number(unformat(money.value.modelValue, money.value.$props))
+        }
+        return Number(money.value.modelValue)
+      },
+      set(new_val){
+        emit('update:modelValue', new_val)
+      }
+    })
 
-				if (amount > this.$refs.money.max){
-					amount = this.$refs.money.max.toFixed(this.$refs.money.precision)
-				}else if (amount < this.$refs.money.min) {
-					amount = this.$refs.money.min.toFixed(this.$refs.money.precision)
-				}else if (plus_minus && amount < this.$refs.money.max) {
-					amount = Math.min(amount + this.step, this.$refs.money.max).toFixed(this.$refs.money.precision);
-				}else if (!plus_minus && amount > this.$refs.money.min){
-					amount = Math.max(amount - this.step, this.$refs.money.min).toFixed(this.$refs.money.precision);
-				}
+    const signChange = (val, pre_val) => {
+      let pre_val_unformat = Number(unformat(pre_val, money.value.$props))
+      let val_unformat = Number(unformat(val, money.value.$props))
 
-				return this.amount = this.format(amount)
-			},
-			sendEventAmount : function (type, plus_minus) {
-				this.$emit(type, this.setAmount(plus_minus), this.format(this.amount))
-			},
-			setAmountPlus: function (event) {
-				this.sendEventAmount('plus', true)
-			},
-			setAmountMinus: function (event) {
-				this.sendEventAmount('minus', false)
-			},
-			updateEventBus: function (new_val) {
-				if (this.$eventBus) {
-					this.$eventBus.$emit(this.id, this.unformat(new_val))
-				}
-			},
-			determineSignEvent: function (new_val, old_val) {
-				let val_format = this.format(new_val)
-				let val_unformat = this.unformat(new_val)
+      if (pre_val_unformat < 0 && val_unformat >= 0) {
+			  emit('positive', val_unformat, val, pre_val)
+      }else if (pre_val_unformat >= 0 && val_unformat < 0) {
+			  emit('negative', val_unformat, val, pre_val)
+      }
+    }
 
-				this.$emit('change', val_unformat, val_format, old_val)
+    const setPlusMinus = (event) => {
+      if (amount.value > money.value.max){
+        amount.value = money.value.max.toFixed(money.value.precision)
+      }else if (money.value.disableNegative && (amount.value + ((event ? 1 : -1) * props.step)) < 0) {
+        amount.value = money.value.masked ? format(0, money.value.$props) : 0
+      }else if (amount.value < money.value.min) {
+        amount.value = money.value.min.toFixed(money.value.precision)
+      }else if (event && amount.value < money.value.max) {
+        amount.value = Math.min(amount.value + props.step, money.value.max).toFixed(money.value.precision);
+      }else if (!event && amount.value > money.value.min){
+        amount.value = Math.max(amount.value - props.step, money.value.min).toFixed(money.value.precision);
+      }
 
-				if (val_unformat > 0 && this.is_negative) {
-					this.is_negative = false
-					this.$emit('positive', val_unformat, val_unformat)
-				}else if (val_unformat < 0 && !this.is_negative) {
-					this.is_negative = true
-					this.$emit('negative', val_unformat, val_unformat)
-				}
-			},
-			unformat: function (val) {
-				return this.$refs.money.unformat(val)
-			},
-			format: function (val) {
-				return this.$refs.money.format(val)
-			}
-		},
-		watch: {
-			amount: function (new_val, old_val) {
-				if (new_val === old_val) return
-				this.$emit('input', new_val)
-			},
-			value: function (new_val) {
-				this.amount = new_val
-			},
-			invalid: function (new_val, old_val) {
-				if (new_val !== old_val && new_val){
-					this.$emit('exceeded',
-						this.unformat(this.amount),
-						this.format(this.amount),
-						this.$refs.money.min,
-						this.$refs.money.max,
-					)
-				}
-			}
-		}
-	}
+			emit(event ? 'plus' : 'minus', amount.value, money.value.data.formattedValue)
+    }
+
+    const plus = () => {
+			setPlusMinus(true)
+    }
+
+    const minus = () => {
+			setPlusMinus(false)
+    }
+
+    const style = (cls) => {
+      return stylesList[props.template]
+        ? stylesList[props.template][cls] + ' ' + props[cls] : props[cls]
+    }
+
+    const vAttrs = computed(() => {
+      const payload = {
+        ...attrs,
+      };
+
+      if (props.modelModifiers.number) {
+        payload.masked = false
+      }
+
+      return payload;
+    });
+
+    onMounted(() => {
+      watch(() => money.value.data.formattedValue, (val, pre_val) => {
+        emit('change', amount.value, val, pre_val)
+        signChange(val, pre_val)
+      })
+    })
+
+    return {
+      money,
+      vAttrs,
+      plus,
+      minus,
+      style,
+    };
+  },
+};
 </script>

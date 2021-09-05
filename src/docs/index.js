@@ -1,10 +1,11 @@
-import Vue from 'vue/dist/vue'
+import { createApp, h } from 'vue'
 import App from './app.vue'
 import MoneySpinner from '../index'
 
-Vue.use(MoneySpinner)
-
-const app = new Vue({
-	el: '#app',
-	render: h => h(App)
+const app = createApp({
+	render: () => h(App),
 });
+
+app.use(MoneySpinner);
+
+app.mount('#app');

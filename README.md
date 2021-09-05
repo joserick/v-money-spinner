@@ -1,12 +1,12 @@
+
 # Welcome to V-Money-Spinner
+[![Npm package total downloads](https://badgen.net/npm/dt/v-money-spinner)](https://npmjs.ccom/package/express) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/joserick/v-money-spinner/blob/master/LICENSE) [![GitHub release](https://img.shields.io/github/release/joserick/v-money-spinner.svg)](https://gitHub.com/joserick/v-money-spinner/releases/) [![Star on GitHub](https://img.shields.io/github/stars/joserick/v-money-spinner?style=social)](https://github.com/joserick/v-money-spinner/stargazers)
+
 V-Money-Spinner is a component which can preset a input spinner with mask currency and style bootstrap, this latter can be disabled.
-![enter image description here](https://joserick.com/v_money_spinner/v_money_spinner.gif)
+![demo](https://joserick.com/v_money_spinner/spinner.gif)
 
 ## [Demo](https://joserick.com/v_money_spinner/)
-
 Enjoy :smile:
-
-Don't forget to support us with a star: [![Star on GitHub](https://img.shields.io/github/stars/joserick/v-money-spinner?style=social)](https://github.com/joserick/v-money-spinner/stargazers)
 
 ## Installation
 ```
@@ -14,16 +14,14 @@ npm i v-money-spinner
 ```
 ```js
 import MoneySpinner from 'v-money-spinner'
-Vue.use(MoneySpinner)
+app.use(MoneySpinner)
 ```
 
 ## Use
 ```html
 <template>
-  <div>
     <v-money-spinner v-model="amount" v-bind="config"></v-money-spinner>
     {{ amount }}
-  </div>
 </template>
 
 <script>
@@ -41,10 +39,10 @@ Vue.use(MoneySpinner)
           precision: 2,
           decimal: '.',
           thousands: ',',
-          bootstrap: true,
-          amend: false,
+          template: "bootstrap",
           masked: true,
-          invalidMessage: 'Min is -10 and Max is 200'
+          disableNegative: false,
+          align: "center",
         }
       }
     }
@@ -55,6 +53,7 @@ Vue.use(MoneySpinner)
 ## Properties
 | Property       | Type    | Default                 | Description                                                 |
 |----------------|---------|-------------------------|---------------------------------------------------------    |
+| id             | String  | "v-money-spinner"       | Input id                                          |
 | spinner        | Boolean | true                    | Apply spinner buttons to the input                          |
 | step           | Number  | 1                       | Number of steps                                             |
 | precision      | Number  | 2                       | How many decimal places                                     |
@@ -64,14 +63,13 @@ Vue.use(MoneySpinner)
 | suffix         | String  | ""                      | Percentage for example: " %"                                |
 | min            | Number  | Number.MIN_SAFE_INTEGER | The min value allowed                                       |
 | max            | Number  | Number.MAX_SAFE_INTEGER | The max value allowed                                       |
-| invalidMessage | String  | ""                      | Message if exceeding min or max value allowed               |
-| amend          | Boolean | false                   | In case of exceeding min or max, overwrite it when deselect |
-| bootstrap      | Boolean | true                    | Apply Bootstrap styles                                      |
+| template       | String  | "bootstrap"             | Apply template styles, use false if you not need template |
 | masked         | Boolean | false                   | If the component output should include the mask or not      |
 | allowBlank     | Boolean | false                   | If the field can start blank and be cleared out by user     |
+| disableNegative| Boolean | false                   | Don't allow negative values                       |
 | label          | String  | ""                      | Text for label tag                                          |
 | align          | String  | "center"                | Change by "left" or "right" to align the text in the input  |
-| id             | String  | "v-money-spinner"       | Input id                                         |
+
 
 ## Events
 | Event          | Parameters                         | Description                                                |
@@ -81,7 +79,7 @@ Vue.use(MoneySpinner)
 | minus          | unformatted, formatted             | Fires when user click on the minus button                  |
 | positive       | unformatted, formatted, old_amount | Fires when the amount change to positive                   |
 | negative       | unformatted, formatted, old_amount | Fires when the amount change to negative                   |
-| exceeded       | unformatted, formatted, min, max   | Fires when the amount exceeded the min or max              |
+
 
 ## Classes (style css)
 | Classes             | Description                                                                                |
@@ -92,32 +90,30 @@ Vue.use(MoneySpinner)
 | appendClass         | Class for the right button tag                                                             |
 | wrapperClass        | Class for div contains all money-spinner                                                   |
 | wrapperGroupClass   | Class for div contains input and the buttons                                               |
-| wrapperPrependClass | Class for div contains left button tag                                                     |
-| wrapperAppendClass  | Class for div contains right button tag                                                    |
 
-# Multiple amount formats
 
-![multiple amount formats](https://joserick.com/v_money_spinner/v_money_spinner_amounts.gif)
+## Migration Vue2 > Vue3
+Track and review changes to the VMoneySpinner source files and documentation to help you migrate from Vue2 to Vue3.
 
-## Use differents maskout
-```html
-<v-money-spinner-amount
-  format="de-DE"
-  prefix="€ "
-  suffix=" EUR"
-  class="badge badge-dark"> // Ej. Style-Bootstrap badges
-</v-money-spinner-amount>
-```
-## Properties
-| Property       | Type    | Default                 | Description                                                 |
-|----------------|---------|-------------------------|---------------------------------------------------------    |
-| money_id       | String  | "v-money-spinner"       | Id of the input where you will get the amount               |
-| format         | String  | "en-US"                 | A format of 'locales' of the Intl.NumberFormat              |
-| precision      | Number  | 2                       | How many decimal places                                     |
-| prefix         | String  | ""                      | Currency symbol followed by a Space, like "R$ "             |
-| suffix         | String  | ""                      | Percentage for example: " %"                                |
-| class          | String  | ""                      | Class for the 'span' tag                                    |
+### New Core
+Previously for the use of the **VMoneySpinner** with *Vue2* was used as core the component [VMoney](https://github.com/vuejs-tips/v-money) by @vuejs-tips, now for *Vue3* is used as core [VMoney3](https://github.com/jonathanpmartins/v-money3) by @jonathanpmartins.
+
+### Properties
+ - Added `disableNegative`(by core) for block the use of negative numbers.
+ - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Renamed `bootstrap` to `template` for the handling different
+   templates though string.
+ - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Dropped `amend`  and `invalidMessage` since the new core does not allow to exceed the properties maximum and minimum.
+
+### Style
+ - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Change/Update classes (style css) default of Bootstrap 4.6 to Bootstrap 5.1.
+ - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Dropped `wrapperPrependClass` for change in structure of Bootstrap 5.
+
+### Events
+
+ - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Dropped `exceeded`  since the new core does not allow to exceed the properties maximum and minimum.
 
 ## References
 
  - https://github.com/JoaoPedroAS51/v-money
+ - https://github.com/jonathanpmartins/v-money
+
