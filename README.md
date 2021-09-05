@@ -2,7 +2,10 @@
 # Welcome to V-Money-Spinner
 [![Npm package total downloads](https://badgen.net/npm/dt/v-money-spinner)](https://npmjs.ccom/package/express) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/joserick/v-money-spinner/blob/master/LICENSE) [![GitHub release](https://img.shields.io/github/release/joserick/v-money-spinner.svg)](https://gitHub.com/joserick/v-money-spinner/releases/) [![Star on GitHub](https://img.shields.io/github/stars/joserick/v-money-spinner?style=social)](https://github.com/joserick/v-money-spinner/stargazers)
 
-V-Money-Spinner is a component which can preset a input spinner with mask currency and style bootstrap, this latter can be disabled.
+**V-Money-Spinner** for **Vue3** is a component which can preset a input spinner with mask currency and style bootstrap, this latter can be disabled.
+
+> Notice: [Migration Vue2 to Vue3](https://github.com/joserick/v-money-spinner#migration-vue2---vue3) || [I need V-Money-Spinner for Vue2](https://github.com/joserick/v-money-spinner/tree/v0.1.8)
+
 ![demo](https://joserick.com/v_money_spinner/spinner.gif)
 
 ## [Demo](https://joserick.com/v_money_spinner/)
@@ -101,7 +104,7 @@ Previously for the use of the **VMoneySpinner** with *Vue2* was used as core the
 
 ### Properties
  - Added `disableNegative`(by core) for block the use of negative numbers.
- - Added `minCharacters` alias `minimumNumberOfCharacters` (by core) insert 0 digit that comes before the first nonzero digit.
+ - Added `minCharacters` alias `minimumNumberOfCharacters` (by core) for insert 0 digit that comes before the first nonzero digit.
  - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Renamed `bootstrap` to `template` for the handling different
    templates though string.
  - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Dropped `amend`  and `invalidMessage` since the new core does not allow to exceed the properties maximum and minimum.
@@ -117,4 +120,3 @@ Previously for the use of the **VMoneySpinner** with *Vue2* was used as core the
 
  - https://github.com/JoaoPedroAS51/v-money
  - https://github.com/jonathanpmartins/v-money
-
