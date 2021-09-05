@@ -9,7 +9,7 @@ V-Money-Spinner is a component which can preset a input spinner with mask curren
 Enjoy :smile:
 
 ## Installation
-```
+```bash
 npm i v-money-spinner
 ```
 ```js
@@ -53,7 +53,6 @@ app.use(MoneySpinner)
 ## Properties
 | Property       | Type    | Default                 | Description                                                 |
 |----------------|---------|-------------------------|---------------------------------------------------------    |
-| id             | String  | "v-money-spinner"       | Input id                                          |
 | spinner        | Boolean | true                    | Apply spinner buttons to the input                          |
 | step           | Number  | 1                       | Number of steps                                             |
 | precision      | Number  | 2                       | How many decimal places                                     |
@@ -63,10 +62,12 @@ app.use(MoneySpinner)
 | suffix         | String  | ""                      | Percentage for example: " %"                                |
 | min            | Number  | Number.MIN_SAFE_INTEGER | The min value allowed                                       |
 | max            | Number  | Number.MAX_SAFE_INTEGER | The max value allowed                                       |
-| template       | String  | "bootstrap"             | Apply template styles, use false if you not need template |
+| template       | String  | "bootstrap"             | Apply template styles, use false if you not need template   |
 | masked         | Boolean | false                   | If the component output should include the mask or not      |
 | allowBlank     | Boolean | false                   | If the field can start blank and be cleared out by user     |
-| disableNegative| Boolean | false                   | Don't allow negative values                       |
+| disableNegative| Boolean | false                   | Don't allow negative values                                 |
+| minCharacters  | Number  | 0                       | Minimum number of characters (leading zero)                 |
+| id             | String  | "v-money-spinner"       | Input id                                                    |
 | label          | String  | ""                      | Text for label tag                                          |
 | align          | String  | "center"                | Change by "left" or "right" to align the text in the input  |
 
@@ -92,14 +93,15 @@ app.use(MoneySpinner)
 | wrapperGroupClass   | Class for div contains input and the buttons                                               |
 
 
-## Migration Vue2 > Vue3
-Track and review changes to the VMoneySpinner source files and documentation to help you migrate from Vue2 to Vue3.
+## Migration Vue2 -> Vue3
+Summary of changes of the VMoneySpinner files and documentation to help you migrate from Vue2 to Vue3.
 
 ### New Core
 Previously for the use of the **VMoneySpinner** with *Vue2* was used as core the component [VMoney](https://github.com/vuejs-tips/v-money) by @vuejs-tips, now for *Vue3* is used as core [VMoney3](https://github.com/jonathanpmartins/v-money3) by @jonathanpmartins.
 
 ### Properties
  - Added `disableNegative`(by core) for block the use of negative numbers.
+ - Added `minCharacters` alias `minimumNumberOfCharacters` (by core) insert 0 digit that comes before the first nonzero digit.
  - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Renamed `bootstrap` to `template` for the handling different
    templates though string.
  - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Dropped `amend`  and `invalidMessage` since the new core does not allow to exceed the properties maximum and minimum.
@@ -109,7 +111,6 @@ Previously for the use of the **VMoneySpinner** with *Vue2* was used as core the
  - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Dropped `wrapperPrependClass` for change in structure of Bootstrap 5.
 
 ### Events
-
  - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Dropped `exceeded`  since the new core does not allow to exceed the properties maximum and minimum.
 
 ## References

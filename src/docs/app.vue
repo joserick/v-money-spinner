@@ -146,6 +146,16 @@
 					<label for="masked" class="btn btn-primary btn-block w-50">{{ config.masked ? 'Active' : 'Inactive' }}</label>
 				</div>
 			</div>
+			<div class="col">
+				<div class="input-group mb-4">
+					<div class="input-group-text w-50">
+						<label class="mx-auto" for="minCharacters" data-tippy-content="Insert 0 digit that comes before the first nonzero digit">
+							Leading-Zero
+						</label>
+					</div>
+					<input id="minCharacters" v-model="minCharactersFormat" type="number" min="0" class="form-control w-50" placeholder="2">
+				</div>
+			</div>
 		</div>
 		<hr class="d-none d-md-block">
 		<div class="row mt-4 mt-md-0">
@@ -183,6 +193,7 @@
 					masked: true,
 					allowBlank: false,
 					disableNegative: false,
+					minCharacters: 0,
 
 					// Docs
 					inputClass: 'form-control-lg',
@@ -275,7 +286,17 @@
 				set: function (v) {
 					this.config.disableNegative = !v
 				}
-			}
+			},
+			minCharactersFormat: {
+				get: function () {
+					return parseInt(this.config.minCharacters)
+				},
+				set: function (v) {
+					if (!isNaN(parseInt(v))) {
+						this.config.minCharacters = parseInt(v)
+					}
+				}
+			},
 		},
 		watch:{
 			template_type: function (val) {

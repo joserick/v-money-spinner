@@ -86,6 +86,10 @@ export default {
         payload.masked = false
       }
 
+      if (payload.minCharacters) {
+        payload.minimumNumberOfCharacters = payload.minCharacters
+      }
+
       return payload;
     });
 
