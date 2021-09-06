@@ -1,4 +1,3 @@
-
 # Welcome to V-Money-Spinner
 [![Npm package total downloads](https://badgen.net/npm/dt/v-money-spinner)](https://npmjs.ccom/package/express) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/joserick/v-money-spinner/blob/master/LICENSE) [![GitHub release](https://img.shields.io/github/release/joserick/v-money-spinner.svg)](https://gitHub.com/joserick/v-money-spinner/releases/) [![Star on GitHub](https://img.shields.io/github/stars/joserick/v-money-spinner?style=social)](https://github.com/joserick/v-money-spinner/stargazers)
 
@@ -63,8 +62,8 @@ app.use(MoneySpinner)
 | thousands      | String  | ","                     | Thousands separator                                         |
 | prefix         | String  | ""                      | Currency symbol followed by a Space, like "R$ "             |
 | suffix         | String  | ""                      | Percentage for example: " %"                                |
-| min            | Number  | Number.MIN_SAFE_INTEGER | The min value allowed                                       |
-| max            | Number  | Number.MAX_SAFE_INTEGER | The max value allowed                                       |
+| min            | Number  | null                    | The min value allowed                                       |
+| max            | Number  | null                    | The max value allowed                                       |
 | template       | String  | "bootstrap"             | Apply template styles, use false if you not need template   |
 | masked         | Boolean | false                   | If the component output should include the mask or not      |
 | allowBlank     | Boolean | false                   | If the field can start blank and be cleared out by user     |
@@ -126,4 +125,4 @@ npm i v-money-spinner@0.1.8
 ## References
 
  - https://github.com/JoaoPedroAS51/v-money
- - https://github.com/jonathanpmartins/v-money
+ - https://github.com/jonathanpmartins/v-money3
