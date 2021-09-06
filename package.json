@@ -1,6 +1,6 @@
 {
   "name": "v-money-spinner",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A component with input spinner and currency mask.",
   "main": "dist/v-money-spinner.js",
   "scripts": {
@@ -25,6 +25,7 @@
     "mask",
     "currency",
     "vue",
+    "vue3",
     "input",
     "bootstrap"
   ],
@@ -37,7 +38,7 @@
   "devDependencies": {
     "@vue/compiler-sfc": "^3.2.8",
     "poi": "^12.10.3",
-    "v-money3": "^3.17.3",
+    "v-money3": "https://gitpkg.vercel.app/jonathanpmartins/v-money3/?main",
     "vue": "^3.2.8",
     "vue-loader": "^16.5.0"
   },

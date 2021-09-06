@@ -66,7 +66,7 @@
 				<div class="input-group mb-4">
 					<div class="input-group-text w-50">
 						<label class="mx-auto" data-tippy-content="Apply template styles for default 'Bootstrap'">
-							<span class="mx-auto" style="font-size: 0.9rem">Template</span>
+							Template
 						</label>
 					</div>
 					<input id="template_type" class="btn-check" v-model="template_type" type="checkbox">
@@ -97,7 +97,7 @@
 				<div class="input-group mb-4">
 					<div class="input-group-text w-50">
 						<label class="mx-auto" data-tippy-content="Allow negative values">
-							<span class="mx-auto" style="font-size: 0.9rem">Negatives</span>
+							Negatives
 						</label>
 					</div>
 					<input id="disableNegative" class="btn-check" v-model="disableNegative" type="checkbox">
@@ -118,7 +118,7 @@
 				<div class="input-group mb-4">
 					<div class="input-group-text w-50">
 						<label class="mx-auto" for="thousands" data-tippy-content="Thousands separator">
-							<span class="mx-auto" style="font-size: 0.8rem">Thousands</span>
+							Thousands
 						</label>
 					</div>
 					<input id="thousands" v-model="thousandsFormat" type="text" class="form-control w-50" placeholder=",">
@@ -128,7 +128,7 @@
 				<div class="input-group mb-4">
 					<div class="input-group-text w-50">
 						<label class="mx-auto" data-tippy-content="If the field can start blank and be cleared out by user">
-							<span class="mx-auto" style="font-size: 0.9rem">Blank</span>
+							Blank
 						</label>
 					</div>
 					<input id="allowBlank" class="btn-check" v-model="config.allowBlank" type="checkbox">
@@ -139,7 +139,7 @@
 				<div class="input-group mb-4">
 					<div class="input-group-text w-50">
 						<label class="mx-auto" data-tippy-content="If the component output should include the mask or not">
-							<span class="mx-auto" style="font-size: 0.9rem">Masked</span>
+							Masked
 						</label>
 					</div>
 					<input id="masked" class="btn-check" v-model="config.masked" type="checkbox">
@@ -148,8 +148,8 @@
 			</div>
 			<div class="col">
 				<div class="input-group mb-4">
-					<div class="input-group-text w-50">
-						<label class="mx-auto" for="minCharacters" data-tippy-content="Insert 0 digit that comes before the first nonzero digit">
+					<div class="input-group-text w-50 p-0">
+						<label class="mx-auto" style="font-size: 0.9rem" for="minCharacters" data-tippy-content="Insert 0 digit that comes before the first nonzero digit">
 							Leading-Zero
 						</label>
 					</div>

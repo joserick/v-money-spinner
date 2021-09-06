@@ -4,7 +4,7 @@
 
 **V-Money-Spinner** for **Vue3** is a component which can preset a input spinner with mask currency and style bootstrap, this latter can be disabled.
 
-> Notice: [Migration Vue2 to Vue3](https://github.com/joserick/v-money-spinner#migration-vue2---vue3) || [I need V-Money-Spinner for Vue2](https://github.com/joserick/v-money-spinner/tree/v0.1.8)
+> Notice: [Migration Vue2 to Vue3](https://github.com/joserick/v-money-spinner#migration-vue2---vue3) || [I need V-Money-Spinner for Vue2](https://github.com/joserick/v-money-spinner#i-need-for-vue2)
 
 ![demo](https://joserick.com/v_money_spinner/spinner.gif)
 
@@ -95,7 +95,6 @@ app.use(MoneySpinner)
 | wrapperClass        | Class for div contains all money-spinner                                                   |
 | wrapperGroupClass   | Class for div contains input and the buttons                                               |
 
-
 ## Migration Vue2 -> Vue3
 Summary of changes of the VMoneySpinner files and documentation to help you migrate from Vue2 to Vue3.
 
@@ -103,7 +102,7 @@ Summary of changes of the VMoneySpinner files and documentation to help you migr
 Previously for the use of the **VMoneySpinner** with *Vue2* was used as core the component [VMoney](https://github.com/vuejs-tips/v-money) by @vuejs-tips, now for *Vue3* is used as core [VMoney3](https://github.com/jonathanpmartins/v-money3) by @jonathanpmartins.
 
 ### Properties
- - Added `disableNegative`(by core) for block the use of negative numbers.
+ - Added `disableNegative` (by core) for block the use of negative numbers.
  - Added `minCharacters` alias `minimumNumberOfCharacters` (by core) for insert 0 digit that comes before the first nonzero digit.
  - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Renamed `bootstrap` to `template` for the handling different
    templates though string.
@@ -115,6 +114,14 @@ Previously for the use of the **VMoneySpinner** with *Vue2* was used as core the
 
 ### Events
  - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Dropped `exceeded`  since the new core does not allow to exceed the properties maximum and minimum.
+
+## I need for Vue2
+### Install for Vue2
+```bash
+npm i v-money-spinner@0.1.8
+```
+
+### [Configuration for Vue2](https://github.com/joserick/v-money-spinner/tree/v0.1.8)
 
 ## References
 
