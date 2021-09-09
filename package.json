@@ -1,16 +1,22 @@
 {
   "name": "v-money-spinner",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A component with input spinner and currency mask.",
   "main": "dist/v-money-spinner.js",
-  "scripts": {
-    "build": "poi --prod --no-html",
-    "build:docs": "poi --prod ./src/docs/index.js -d ./docs/ --html.template ./src/docs/index.html",
-    "dev": "poi --serve --html.template ./src/docs/index.html ./src/docs/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "module": "./dist/v-money3.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/v-money3.es.js",
+      "require": "./dist/v-money3.umd.js"
+    }
   },
-  "resolutions": {
-    "serialize-javascript": ">=3.1.0"
+  "scripts": {
+    "lint": "./node_modules/node/bin/node ./node_modules/eslint/bin/eslint.js --ext .js,.vue ./",
+    "serve": "./node_modules/node/bin/node ./node_modules/vite/bin/vite.js --host=localhost --port=3000 --open --force",
+    "build": "./node_modules/node/bin/node ./node_modules/vite/bin/vite.js build",
+    "test": "./node_modules/node/bin/node ./node_modules/jest/bin/jest.js",
+    "lock": "npm i --package-lock-only",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -36,13 +42,26 @@
   },
   "homepage": "https://github.com/joserick/v-money-spinner#readme",
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.2.8",
-    "poi": "^12.10.3",
-    "v-money3": "https://gitpkg.vercel.app/jonathanpmartins/v-money3/?main",
-    "vue": "^3.2.8",
-    "vue-loader": "^16.5.0"
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.4",
+    "@vitejs/plugin-vue": "^1.6.1",
+    "@vue/compiler-sfc": "^3.2.9",
+    "@vue/test-utils": "^2.0.0-rc.14",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-vue": "^7.17.0",
+    "jest": "^26.6.3",
+    "jest-puppeteer": "^5.0.4",
+    "node": "^16.6.1",
+    "ts-jest": "^26.5.6",
+    "v-money3": "^3.17.6",
+    "vite": "^2.5.4",
+    "vue": "^3.2.9",
+    "vue-jest": "^5.0.0-alpha.10"
   },
   "peerDependencies": {
-    "vue": "^3.2.6"
+    "vue": "^3.2.0"
   }
 }

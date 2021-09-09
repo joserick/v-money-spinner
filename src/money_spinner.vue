@@ -13,14 +13,20 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, watch } from 'vue'
+import {
+  defineComponent,
+  ref,
+  computed,
+  onMounted,
+  watch,
+} from 'vue'
 import Money from 'v-money3/src/component.vue';
 import unformat from 'v-money3/src/unformat';
 import BigNumber from './big_number';
 import stylesList from "./styles";
 import defaults from "./validations";
 
-export default {
+export default defineComponent({
   name: "money-spinner",
   components: { Money },
   inheritAttrs: false,
@@ -114,5 +120,5 @@ export default {
       style,
     };
   },
-};
+})
 </script>

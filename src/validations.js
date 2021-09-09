@@ -23,7 +23,7 @@ export default {
     default: () => defaults.align
   },
   label: {
-    type: [Boolean, String],
+    type: String,
     default: () => defaults.label
   },
   labelClass: {
