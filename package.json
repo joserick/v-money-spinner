@@ -1,13 +1,13 @@
 {
   "name": "v-money-spinner",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A component with input spinner and currency mask.",
-  "main": "dist/v-money-spinner.js",
-  "module": "./dist/v-money3.es.js",
+  "main": "./dist/v-money-spinner.umd.js",
+  "module": "./dist/v-money-spinner.es.js",
   "exports": {
     ".": {
-      "import": "./dist/v-money3.es.js",
-      "require": "./dist/v-money3.umd.js"
+      "import": "./dist/v-money-spinner.es.js",
+      "require": "./dist/v-money-spinner.umd.js"
     }
   },
   "scripts": {
