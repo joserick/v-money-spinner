@@ -19,15 +19,15 @@ export default class BigNumber extends Utils {
     return this
   }
 
-  minMax(plusMinus, number, thatBigNumber){
-    if(thatBigNumber){
+  minMax(plusMinus, number, thatBigNumber) {
+    if (thatBigNumber) {
       if (this[plusMinus ? 'add' : 'subtract'](number)
-        [plusMinus ? 'lessThan' : 'biggerThan'](thatBigNumber)) {
+      [plusMinus ? 'lessThan' : 'biggerThan'](thatBigNumber)) {
         return this
-      }else{
+      } else {
         return thatBigNumber
       }
-    }else{
+    } else {
       return this[plusMinus ? 'add' : 'subtract'](number)
     }
   }

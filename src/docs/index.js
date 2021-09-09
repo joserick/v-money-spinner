@@ -3,7 +3,7 @@ import App from './app.vue'
 import MoneySpinner from '../index'
 
 const app = createApp({
-	render: () => h(App),
+  render: () => h(App),
 });
 
 app.use(MoneySpinner);

@@ -1,11 +1,11 @@
 import VMoneySpinner from './money_spinner.vue'
 
 export {
-	VMoneySpinner,
+  VMoneySpinner,
 }
 
 export default {
-	install(app) {
-		app.component('VMoneySpinner', VMoneySpinner)
-	}
+  install(app) {
+    app.component('VMoneySpinner', VMoneySpinner)
+  }
 }
