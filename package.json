@@ -1,6 +1,6 @@
 {
   "name": "v-money-spinner",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A component with input spinner and currency mask.",
   "main": "./dist/v-money-spinner.umd.js",
   "module": "./dist/v-money-spinner.es.js",
@@ -56,12 +56,14 @@
     "jest-puppeteer": "^5.0.4",
     "node": "^16.6.1",
     "ts-jest": "^26.5.6",
-    "v-money3": "^3.17.6",
     "vite": "^2.5.4",
     "vue": "^3.2.9",
     "vue-jest": "^5.0.0-alpha.10"
   },
   "peerDependencies": {
     "vue": "^3.2.0"
+  },
+  "dependencies": {
+    "v-money3": "^3.20.0"
   }
 }
