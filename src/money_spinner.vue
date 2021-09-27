@@ -1,8 +1,6 @@
 <template>
   <div :class="style('wrapperClass')">
-    <label v-if="label" :class="style('labelClass')" :for="id">{{
-      label
-    }}</label>
+    <label v-if="label" :class="style('labelClass')" :for="id">{{ label }}</label>
     <div :class="style('wrapperGroupClass')">
       <button v-if="spinner" type="button" @click="minus"
         :class="style('prependClass')">-</button>
@@ -22,8 +20,7 @@ import {
   onMounted,
   watch,
 } from 'vue'
-import Money from 'v-money3/src/component.vue'
-import unformat from 'v-money3/src/unformat'
+import { Money, unformat } from 'v-money3'
 import BigNumber from './big_number'
 import stylesList from "./styles"
 import defaults from "./validations"
@@ -65,26 +62,16 @@ export default defineComponent({
         amount.value = money.value.max.toFixed(money.value.precision)
       } else if (money.value.min && amount.value.lessThan(money.value.min)) {
         amount.value = money.value.min.toFixed(money.value.precision)
-      } else if (
-        event &&
-        (money.value.max === null || amount.value.lessThan(money.value.max))
-      ) {
-        amount.value = amount.value
-          .minMax(event, props.step, money.value.max)
-          .toFixed(money.value.precision)
-      } else if (
-        !event &&
-        (money.value.min === null || amount.value.biggerThan(money.value.min))
-      ) {
-        amount.value = amount.value
-          .minMax(event, props.step, money.value.min)
-          .toFixed(money.value.precision)
+      } else if ( event && (money.value.max === null || amount.value.lessThan(money.value.max))) {
+        amount.value = amount.value.minMax(event, props.step, money.value.max).toFixed(money.value.precision)
+      } else if ( !event && (money.value.min === null || amount.value.biggerThan(money.value.min))) {
+        amount.value = amount.value.minMax(event, props.step, money.value.min).toFixed(money.value.precision)
       }
 
       emit(
         event ? "plus" : "minus",
         amount.value.toFixed(money.value.precision),
-        money.value.data.formattedValue
+        money.value.$el.value
       )
     }
 
@@ -123,7 +110,7 @@ export default defineComponent({
     })
 
     onMounted(() => {
-      watch(() => money.value.data.formattedValue, (val, pre_val) => {
+      watch(() => money.value.$el.value, (val, pre_val) => {
         emit('change', amount.value.toFixed(money.value.precision), val, pre_val)
         signChange(val, pre_val)
       })

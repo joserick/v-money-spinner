@@ -1,4 +1,4 @@
-import Utils from 'v-money3/src/BigNumber';
+import { BigNumber as Utils } from 'v-money3';
 
 export default class BigNumber extends Utils {
   constructor(number) {
