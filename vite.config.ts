@@ -1,7 +1,5 @@
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-
-const path = require('path');
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,8 +7,9 @@ export default defineConfig({
   build: {
     target: 'es2020',
     lib: {
-      entry: path.resolve(__dirname, 'src/index.js'),
+      entry: 'src/index.ts',
       name: 'v-money-spinner',
+      fileName: format => `v-money-spinner.${format}.js`
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled

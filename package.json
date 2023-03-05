@@ -1,6 +1,6 @@
 {
   "name": "v-money-spinner",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A component with input spinner and currency mask.",
   "main": "./dist/v-money-spinner.umd.js",
   "module": "./dist/v-money-spinner.es.js",
@@ -10,13 +10,11 @@
       "require": "./dist/v-money-spinner.umd.js"
     }
   },
+  "type": "module",
   "scripts": {
-    "lint": "./node_modules/node/bin/node ./node_modules/eslint/bin/eslint.js --ext .js,.vue ./",
-    "serve": "./node_modules/node/bin/node ./node_modules/vite/bin/vite.js --host=localhost --port=3000 --open --force",
-    "build": "./node_modules/node/bin/node ./node_modules/vite/bin/vite.js build",
-    "test": "./node_modules/node/bin/node ./node_modules/jest/bin/jest.js",
-    "lock": "npm i --package-lock-only",
-    "prepublish": "npm run build"
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -41,29 +39,14 @@
     "url": "https://github.com/joserick/v-money-spinner/issues"
   },
   "homepage": "https://github.com/joserick/v-money-spinner#readme",
-  "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.15.0",
-    "@babel/preset-env": "^7.15.4",
-    "@vitejs/plugin-vue": "^1.6.1",
-    "@vue/compiler-sfc": "^3.2.9",
-    "@vue/test-utils": "^2.0.0-rc.14",
-    "babel-jest": "^26.6.3",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-vue": "^7.17.0",
-    "jest": "^26.6.3",
-    "jest-puppeteer": "^5.0.4",
-    "node": "^16.6.1",
-    "ts-jest": "^26.5.6",
-    "vite": "^2.5.4",
-    "vue": "^3.2.9",
-    "vue-jest": "^5.0.0-alpha.10"
-  },
-  "peerDependencies": {
-    "vue": "^3.2.0"
-  },
   "dependencies": {
-    "v-money3": "^3.20.0"
+    "v-money3": "^3.23.0",
+    "vue": "^3.2.45"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0",
+    "vue-tsc": "^1.0.24"
   }
 }

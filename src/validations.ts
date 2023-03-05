@@ -2,7 +2,6 @@ import defaults from './options'
 
 export default {
   id: {
-    required: false,
     type: [Number, String],
     default: () => defaults.id
   },

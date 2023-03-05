@@ -5,7 +5,7 @@ export {
 }
 
 export default {
-  install(app) {
+  install(app: { component: (arg0: string, arg1: any) => void }) {
     app.component('VMoneySpinner', VMoneySpinner)
   }
 }
