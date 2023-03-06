@@ -14,7 +14,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "doc": "vite build --mode doc",
+    "doc": "vue-tsc && vite build --mode doc",
     "preview": "vite preview"
   },
   "repository": {
