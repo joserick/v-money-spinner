@@ -38,7 +38,7 @@ export default defineComponent({
     }
   },
   props: defaults,
-  setup(props, { emit, attrs, expose }) {
+  setup(props, { emit, attrs }) {
     const money = ref<VMoneyOptions>()
 
     // Create a new object to store the amount data
