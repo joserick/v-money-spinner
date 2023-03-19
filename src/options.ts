@@ -1,21 +1,27 @@
-import { VMoneyOptions } from 'v-money3'
+import { Money, VMoneyOptions } from 'v-money3'
 
 export interface VMoneySpinnerOptions extends VMoneyOptions {
-    id: string,
-    template: string | boolean,
-    spinner: boolean,
-    step: number,
-    align: string,
-    label: string,
-    labelClass: string,
-    wrapperClass: string,
-    wrapperGroupClass: string,
-    prependClass: string,
-    appendClass: string,
-    inputClass: string,
-  }
+  id: string
+  template: string | boolean
+  spinner: boolean
+  step: number
+  align: string
+  label: string
+  labelClass: string
+  wrapperClass: string
+  wrapperGroupClass: string
+  prependClass: string
+  appendClass: string
+  inputClass: string
+}
 
-export default {
+const defaultsMoney3 = Object.fromEntries(
+  Object.entries(Money.props as VMoneyOptions)
+    .map(([k, v]) => [k, (typeof v.default === 'function' ? v.default() : v.default)])
+) as VMoneyOptions
+
+const defaultOptions: VMoneySpinnerOptions = {
+  ...defaultsMoney3,
   id: 'v-money-spinner',
   template: 'bootstrap',
   spinner: true,
@@ -27,5 +33,7 @@ export default {
   wrapperGroupClass: '',
   prependClass: '',
   appendClass: '',
-  inputClass: '',
-} as VMoneySpinnerOptions
+  inputClass: ''
+}
+
+export default defaultOptions

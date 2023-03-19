@@ -5,6 +5,10 @@ export default {
     type: [Number, String],
     default: () => defaults.id
   },
+  modelValue: {
+    required: true,
+    type: [Number, String]
+  },
   template: {
     type: [Boolean, String],
     default: () => defaults.template
@@ -37,14 +41,6 @@ export default {
     type: String,
     default: () => defaults.wrapperGroupClass
   },
-  wrapperPrependClass: {
-    type: String,
-    default: () => defaults.wrapperPrependClass
-  },
-  wrapperAppendClass: {
-    type: String,
-    default: () => defaults.wrapperAppendClass
-  },
   prependClass: {
     type: String,
     default: () => defaults.prependClass
@@ -57,12 +53,8 @@ export default {
     type: String,
     default: () => defaults.inputClass
   },
-  invalidClass: {
-    type: String,
-    default: () => defaults.invalidClass
-  },
   modelModifiers: {
     type: Object,
     default: () => ({})
-  },
+  }
 }
