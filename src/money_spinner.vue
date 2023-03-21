@@ -1,12 +1,13 @@
 <template>
   <div :class="style('wrapperClass')">
-    <label v-if="label" :class="style('labelClass')" :for="id.toString()">
+    <label v-if="label" :class="style('labelClass')" :for="money?.id">
       {{ label }}
     </label>
     <div :class="style('wrapperGroupClass')">
       <button v-if="spinner" type="button" @click="minus"
         :class="style('prependClass')">-</button>
-      <Money v-model="amount.model.value" ref="money" :id="id" v-bind="vAttrs"
+      <Money v-model="amount.model.value" v-bind="vAttrs"
+        ref="money" @keydown.up.prevent="plus" @keydown.down.prevent="minus"
         :class="[style('inputClass'), template ? 'text-' + align : '']"/>
       <button v-if="spinner" type="button" @click="plus"
         :class="style('appendClass')">+</button>

@@ -1,10 +1,6 @@
 import defaults from './options'
 
 export default {
-  id: {
-    type: [Number, String],
-    default: () => defaults.id
-  },
   modelValue: {
     type: [Number, String],
     default: () => defaults.modelValue

@@ -1,7 +1,6 @@
 import { Money, VMoneyOptions } from 'v-money3'
 
 export interface VMoneySpinnerOptions extends VMoneyOptions {
-  id: string
   modelValue: string | number
   template: string | boolean
   spinner: boolean
@@ -23,7 +22,6 @@ const defaultsMoney3 = Object.fromEntries(
 
 const defaultOptions: VMoneySpinnerOptions = {
   ...defaultsMoney3,
-  id: 'v-money-spinner',
   modelValue: 0,
   template: 'bootstrap',
   spinner: true,
