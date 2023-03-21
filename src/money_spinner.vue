@@ -6,7 +6,7 @@
     <div :class="style('wrapperGroupClass')">
       <button v-if="spinner" type="button" @click="minus"
         :class="style('prependClass')">-</button>
-      <Money v-model="amount.model" ref="money" :id="id" v-bind="vAttrs"
+      <Money v-model="amount.model.value" ref="money" :id="id" v-bind="vAttrs"
         :class="[style('inputClass'), template ? 'text-' + align : '']"/>
       <button v-if="spinner" type="button" @click="plus"
         :class="style('appendClass')">+</button>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed, onMounted, watch, useAttrs } from 'vue'
+  import { ref, computed, onMounted, watch, useAttrs, watchEffect } from 'vue'
   import { Money, unformat, VMoneyOptions } from 'v-money3'
   import BigNumber from './big_number'
   import stylesList from './styles'
@@ -31,39 +31,32 @@
     "change",
   ])
 
-  console.log(Money)
   const attrs = useAttrs()
   const props = defineProps(defaults)
   const money = ref<VMoneyOptions | null>(null)
   // Create a new object to store the amount data
   const amount = {
-    get model() : string | number {
-      return props.modelValue ?? 0
-    },
-
-    set model(value: string | number) {
-      emit("update:modelValue", value)
-    },
+    model: ref(props.modelValue),
 
     // Define a getter for the value
     get value(): BigNumber {
       // If the money component has a masked value
-      if (typeof this.model === "string") {
+      if (typeof this.model.value === "string") {
         // Return a BigNumber object converted from the unformatted money value
         return new BigNumber(
-          unformat(this.model, money.value!.$props)
+          unformat(this.model.value, money.value!.$props)
         )
       }
 
       // Return a BigNumber object converted from the unformatted money value
-      return new BigNumber(this.model)
+      return new BigNumber(this.model.value)
     },
 
     set value(value: string | number | BigNumber) {
       if (typeof value === "string") {
-        this.model = value
+        this.model.value = value
       } else {
-        this.model = value.toFixed(money.value!.precision)
+        this.model.value = value.toFixed(money.value!.precision)
       }
     },
   }
@@ -79,10 +72,10 @@
 
   // Update the amount in base the plus or minus of the step.
   const setPlusMinus = (event: boolean) => {
-    if (money.value!.max && amount.value.biggerThan(money.value!.max)) {
+    if (money.value!.max !== null && amount.value.biggerThan(money.value!.max)) {
       // if the amount is bigger than the maximum value, set the amount to the max value.
       amount.value = money.value!.max
-    } else if (money.value!.min && amount.value.lessThan(money.value!.min)) {
+    } else if (money.value!.min !== null && amount.value.lessThan(money.value!.min)) {
       // if the amount is less than the minimum value, set the amount to the min value.
       amount.value = money.value!.min
     } else if (event && (money.value!.max === null || amount.value.lessThan(money.value!.max))) {
@@ -148,6 +141,10 @@
     }
 
     return payload
+  })
+
+  watchEffect(() => {
+    emit('update:modelValue', amount.model.value);
   })
 
   onMounted(() => {

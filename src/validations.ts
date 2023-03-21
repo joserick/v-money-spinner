@@ -6,8 +6,8 @@ export default {
     default: () => defaults.id
   },
   modelValue: {
-    required: true,
-    type: [Number, String]
+    type: [Number, String],
+    default: () => defaults.modelValue
   },
   template: {
     type: [Boolean, String],
