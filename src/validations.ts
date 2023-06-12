@@ -13,6 +13,10 @@ export default {
     type: Boolean,
     default: () => defaults.spinner
   },
+  spinnerAlign: {
+    type: String,
+    default: () => defaults.spinnerAlign
+  },
   step: {
     type: Number,
     default: () => defaults.step

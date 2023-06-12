@@ -4,13 +4,25 @@
       {{ label }}
     </label>
     <div :class="style('wrapperGroupClass')">
-      <button v-if="spinner" type="button" @click="minus"
+      <div v-if="spinnerAlign('start')" :class="style('buttonGroupClass')">
+        <button type="button" @click="plus"
+          :class="style('appendClass')">+</button>
+        <button type="button" @click="minus"
+          :class="style('prependClass')">-</button>
+      </div>
+      <button v-if="spinnerAlign('normal')" type="button" @click="minus"
         :class="style('prependClass')">-</button>
       <Money v-model="amount.model.value" v-bind="vAttrs"
         ref="money" @keydown.up.prevent="plus" @keydown.down.prevent="minus"
         :class="[style('inputClass'), template ? 'text-' + align : '']"/>
-      <button v-if="spinner" type="button" @click="plus"
+      <button v-if="spinnerAlign('normal')" type="button" @click="plus"
         :class="style('appendClass')">+</button>
+      <div v-if="spinnerAlign('end')" :class="style('buttonGroupClass')">
+        <button type="button" @click="plus"
+          :class="style('appendClass')">+</button>
+        <button type="button" @click="minus"
+          :class="style('prependClass')">-</button>
+      </div>
     </div>
   </div>
 </template>
@@ -103,6 +115,14 @@
     setPlusMinus(false)
   }
 
+  const spinnerAlign = (align: string) => {
+    if (!props.spinner) {
+      return false;
+    }
+
+    return props.spinnerAlign == align;
+  }
+
   const style = (cls: string) => {
     // If the template name is a string then we can use it to get the styles.
     if (typeof props.template === "string") {
@@ -110,7 +130,7 @@
       if (stylesList[props.template]) {
         // Return the class list for the element.
         return (
-          stylesList[props.template][cls as keyof typeof stylesList.bootstrap] +
+          stylesList[props.template][cls as keyof typeof stylesList.key] +
           " " +
           props[cls as keyof typeof props]
         )

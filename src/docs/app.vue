@@ -156,6 +156,55 @@
           <input id="minCharacters" v-model="minCharactersFormat" type="number" min="0" class="form-control w-50" placeholder="2">
         </div>
       </div>
+      <div class="col">
+        <div class="input-group mb-4">
+          <div class="input-group-text w-50">
+            <label class="mx-auto" data-tippy-content="Determine the position of the buttons">
+              Spinner Align
+            </label>
+          </div>
+          <div class="btn-group w-50" role="group" aria-label="Spinner Align">
+            <input type="radio" class="btn-check" name="spinner_align" v-model="spinnerAlignFormat" value="start" id="spinner_align1" autocomplete="off">
+            <label class="btn btn-outline-primary p-1 pt-2 rounded-start-0" style="font-size: 0.9rem" for="spinner_align1">Start</label>
+
+            <input type="radio" class="btn-check" name="spinner_align" v-model="spinnerAlignFormat" value="normal" id="spinner_align2" autocomplete="off" checked>
+            <label class="btn btn-outline-primary p-1 pt-2" style="font-size: 0.9rem" for="spinner_align2">Normal</label>
+
+            <input type="radio" class="btn-check" name="spinner_align" v-model="spinnerAlignFormat" value="end" id="spinner_align3" autocomplete="off">
+            <label class="btn btn-outline-primary p-1 pt-2" style="font-size: 0.9rem" for="spinner_align3">End</label>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="input-group mb-4">
+          <div class="input-group-text w-50">
+            <label class="mx-auto" data-tippy-content="When focus, set the cursor to the far right">
+              Focus On Right
+            </label>
+          </div>
+          <input id="focus-on-right" class="btn-check" v-model="config.focusOnRight" type="checkbox">
+          <label for="focus-on-right" class="btn btn-primary btn-block w-50">{{ config.focusOnRight ? 'Active' : 'Inactive' }}</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="input-group mb-4">
+          <div class="input-group-text w-50">
+            <label class="mx-auto" data-tippy-content="Determine the position of the input text">
+              Align input text
+            </label>
+          </div>
+          <div class="btn-group w-50" role="group" aria-label="Align input text">
+            <input type="radio" class="btn-check" name="align" v-model="config.align" value="start" id="align1" autocomplete="off">
+            <label class="btn btn-outline-primary p-1 pt-2 rounded-start-0" style="font-size: 0.9rem" for="align1">Start</label>
+
+            <input type="radio" class="btn-check" name="align" v-model="config.align" value="center" id="align2" autocomplete="off" checked>
+            <label class="btn btn-outline-primary p-1 pt-2" style="font-size: 0.9rem" for="align2">Center</label>
+
+            <input type="radio" class="btn-check" name="align" v-model="config.align" value="end" id="align3" autocomplete="off">
+            <label class="btn btn-outline-primary p-1 pt-2" style="font-size: 0.9rem" for="align3">End</label>
+          </div>
+        </div>
+      </div>
     </div>
     <hr class="d-none d-md-block">
     <div class="row mt-4 mt-md-0">
@@ -194,6 +243,9 @@
           allowBlank: false,
           disableNegative: false,
           minCharacters: 0,
+          spinnerAlign: 'normal',
+          align: 'center',
+          focusOnRight: false,
 
           // Docs
           inputClass: 'form-control-lg',
@@ -202,7 +254,7 @@
         template_type: true,
         //Style
         style: null,
-        bootstrap: 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css',
+        bootstrap: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
       }
     },
     mounted: function () {
@@ -295,6 +347,25 @@
           if (!isNaN(parseInt(v))) {
             this.config.minCharacters = parseInt(v)
           }
+        }
+      },
+      spinnerAlignFormat: {
+        get: function () {
+          return this.config.spinnerAlign
+        },
+        set: function (v) {
+          if (v == 'start') {
+            this.config.prependClass = 'btn btn-outline-secondary fw-bold py-0 rounded-top-0 rounded-end-0',
+            this.config.appendClass = 'btn btn-outline-success fw-bold py-0 rounded-bottom-0 rounded-end-0'
+          }else if (v == 'end') {
+            this.config.prependClass = 'btn btn-outline-secondary fw-bold py-0 rounded-top-0 rounded-start-0',
+            this.config.appendClass = 'btn btn-outline-success fw-bold py-0 rounded-bottom-0 rounded-start-0'
+          }else{
+            this.config.prependClass = 'btn btn-outline-secondary fw-bold',
+            this.config.appendClass = 'btn btn-outline-success fw-bold'
+          }
+
+          this.config.spinnerAlign = v
         }
       },
     },

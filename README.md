@@ -45,6 +45,7 @@ app.use(MoneySpinner)
           masked: true,
           disableNegative: false,
           align: "center",
+          spinnerAlign: "normal",
         }
       }
     }
@@ -54,7 +55,7 @@ app.use(MoneySpinner)
 
 ## Properties
 | Property       | Type    | Default                 | Description                                                 |
-|----------------|---------|-------------------------|---------------------------------------------------------    |
+|----------------|---------|-------------------------|-------------------------------------------------------------|
 | spinner        | Boolean | true                    | Apply spinner buttons to the input                          |
 | step           | Number  | 1                       | Number of steps                                             |
 | precision      | Number  | 2                       | How many decimal places                                     |
@@ -69,9 +70,11 @@ app.use(MoneySpinner)
 | allowBlank     | Boolean | false                   | If the field can start blank and be cleared out by user     |
 | disableNegative| Boolean | false                   | Don't allow negative values                                 |
 | minCharacters  | Number  | 0                       | Minimum number of characters (leading zero)                 |
+| should-round   | Boolean | false                   | Should default values be rounded or sliced                  |
+| focus-on-right | Boolean | false                   | When focus, set the cursor to the far right                 |
 | id             | String  | "v-money-spinner"       | Input id                                                    |
 | label          | String  | ""                      | Text for label tag                                          |
-| align          | String  | "center"                | Change by "left" or "right" to align the text in the input  |
+| align          | String  | "center"                | Change by "start" or "end" to align the text in the input   |
 
 
 ## Events
@@ -107,7 +110,7 @@ Previously for the use of the **VMoneySpinner** with *Vue2* was used as core the
    templates though string.
  - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Dropped `amend`  and `invalidMessage` since the new core does not allow to exceed the properties maximum and minimum.
 
-### Style
+### StyleMinimum number of characters (leading zero)
  - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Change/Update classes (style css) default of Bootstrap 4.6 to Bootstrap 5.1.
  - ![Breaking](https://img.shields.io/badge/-Breaking-dc3545.svg) Dropped `wrapperPrependClass` for change in structure of Bootstrap 5.
 
