@@ -9,12 +9,12 @@
 
 ## [Demo](https://joserick.com/v_money_spinner/)
 Enjoy :smile:
+## Enjoying this package? [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/joserick)
 
 ## Installation
 ```bash
 npm i v-money-spinner
 ```
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/joserick)
 ```js
 import MoneySpinner from 'v-money-spinner'
 app.use(MoneySpinner)
