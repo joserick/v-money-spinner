@@ -1,7 +1,7 @@
 # Welcome to V-Money-Spinner
 [![Npm package total downloads](https://badgen.net/npm/dt/v-money-spinner)](https://npmjs.ccom/package/express) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/joserick/v-money-spinner/blob/master/LICENSE) [![GitHub release](https://img.shields.io/github/release/joserick/v-money-spinner.svg)](https://gitHub.com/joserick/v-money-spinner/releases/) [![Star on GitHub](https://img.shields.io/github/stars/joserick/v-money-spinner?style=social)](https://github.com/joserick/v-money-spinner/stargazers)
 
-**V-Money-Spinner** for **Vue3** is a component which can preset a input spinner with mask currency and style bootstrap, this latter can be disabled.
+**V-Money-Spinner** for **Vue3** is a component which can preset a input spinner with mask currency. It ships with a **Tailwind CSS** template (default) and a **Bootstrap** template as a fallback, and both can be disabled.
 
 > Notice: [Migration Vue2 to Vue3](https://github.com/joserick/v-money-spinner#migration-vue2---vue3) || [I need V-Money-Spinner for Vue2](https://github.com/joserick/v-money-spinner#i-need-for-vue2)
 
@@ -42,7 +42,7 @@ app.use(MoneySpinner)
           precision: 2,
           decimal: '.',
           thousands: ',',
-          template: "bootstrap",
+          template: "tailwind",
           masked: true,
           disableNegative: false,
           align: "center",
@@ -66,7 +66,7 @@ app.use(MoneySpinner)
 | suffix         | String  | ""                      | Percentage for example: " %"                                |
 | min            | Number  | null                    | The min value allowed                                       |
 | max            | Number  | null                    | The max value allowed                                       |
-| template       | String  | "bootstrap"             | Apply template styles, use false if you not need template   |
+| template       | String  | "tailwind"              | Apply template styles (`tailwind` or `bootstrap`), use false if you not need template |
 | masked         | Boolean | false                   | If the component output should include the mask or not      |
 | allowBlank     | Boolean | false                   | If the field can start blank and be cleared out by user     |
 | disableNegative| Boolean | false                   | Don't allow negative values                                 |
@@ -97,6 +97,37 @@ app.use(MoneySpinner)
 | appendClass         | Class for the right button tag                                                             |
 | wrapperClass        | Class for div contains all money-spinner                                                   |
 | wrapperGroupClass   | Class for div contains input and the buttons                                               |
+
+## Styling Templates
+
+The `template` prop selects a preset of class strings. The library ships two presets and does not bundle any CSS framework, so you bring the one you use.
+
+### Tailwind (default, since 2.0.0)
+
+`template: "tailwind"` applies Tailwind utility classes to the label, input, and buttons. Install Tailwind in your app and make sure the utilities used by the preset are generated. The preset uses literal class names, but the input alignment is applied dynamically from the `align` prop; safelist the alignment utilities so they are always generated:
+
+```js
+// tailwind.config.js (Tailwind v3)
+module.exports = {
+  content: ['./src/**/*.{vue,js,ts}'],
+  safelist: ['text-start', 'text-center', 'text-end']
+}
+```
+
+In Tailwind v4 the class detection scans your sources automatically; include `text-start`, `text-center`, and `text-end` as literals somewhere (or use `@source inline(...)`) if you rely on the `align` prop.
+
+### Bootstrap (fallback)
+
+`template: "bootstrap"` applies the Bootstrap 5 classes. Install Bootstrap in your app (or load it from a CDN) if you use this template.
+
+### Disabling templates
+
+Set `template` to `false` to render the component with no preset classes and style it yourself through the `*Class` props.
+
+## 2.0.0 Migration
+
+- **Breaking:** the default `template` changed from `"bootstrap"` to `"tailwind"`. If you rely on the Bootstrap styling and do not install Tailwind, set `template="bootstrap"` explicitly or downgrade.
+- Type declarations are now exposed through `package.json` `exports.types`; no import changes are needed.
 
 ## Migration Vue2 -> Vue3
 Summary of changes of the VMoneySpinner files and documentation to help you migrate from Vue2 to Vue3.
