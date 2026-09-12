@@ -25,7 +25,7 @@ const defaultsMoney3 = Object.fromEntries(
 const defaultOptions: VMoneySpinnerOptions = {
   ...defaultsMoney3,
   modelValue: 0,
-  template: 'bootstrap',
+  template: 'tailwind',
   spinner: true,
   spinnerAlign: 'normal',
   step: 1,
