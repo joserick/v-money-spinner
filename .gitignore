@@ -11,7 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
-docs
+/docs
+
+# Lockfile (local only)
+pnpm-lock.yaml
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +26,5 @@ docs
 *.njsproj
 *.sln
 *.sw?
+openspec
+.opencode
