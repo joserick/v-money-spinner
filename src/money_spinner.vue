@@ -14,7 +14,7 @@
         :class="style('prependClass')">-</button>
       <Money v-model="amount.model.value" v-bind="vAttrs"
         ref="money" @keydown.up.prevent="plus" @keydown.down.prevent="minus"
-        :class="[style('inputClass'), template ? 'text-' + align : '']"/>
+        :class="[style('inputClass'), alignClass]"/>
       <button v-if="spinnerAlign('normal')" type="button" @click="plus"
         :class="style('appendClass')">+</button>
       <div v-if="spinnerAlign('end')" :class="style('buttonGroupClass')">
@@ -28,11 +28,15 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, computed, onMounted, watch, useAttrs, watchEffect } from 'vue'
+  import { ref, computed, watch, useAttrs } from 'vue'
   import { Money, unformat, VMoneyOptions } from 'v-money3'
   import BigNumber from './big_number'
   import stylesList from './styles'
   import defaults from './validations'
+
+  defineOptions({
+    inheritAttrs: false
+  })
 
   const emit = defineEmits([
     "update:modelValue",
@@ -47,9 +51,12 @@
   const attrs = useAttrs()
   const props = defineProps(defaults)
   const money = ref<VMoneyOptions | null>(null)
+
+  const model = ref<string | number>(props.modelValue)
+
   // Create a new object to store the amount data
   const amount = {
-    model: ref(props.modelValue),
+    model,
 
     // Define a getter for the value
     get value(): BigNumber {
@@ -73,6 +80,20 @@
       }
     },
   }
+
+  // Keep the internal amount in sync with external modelValue updates.
+  watch(() => props.modelValue, (value) => {
+    if (value !== model.value) {
+      model.value = value
+    }
+  })
+
+  // Notify the parent only when the amount changes internally.
+  watch(model, (value) => {
+    if (value !== props.modelValue) {
+      emit("update:modelValue", value)
+    }
+  })
 
   const signChange = (val: BigNumber, pre_val: BigNumber) => {
     // Detect if the number is positive, negative or neutral.
@@ -123,6 +144,20 @@
     return props.spinnerAlign == align;
   }
 
+  const alignClasses: Record<string, string> = {
+    start: 'text-start',
+    center: 'text-center',
+    end: 'text-end'
+  }
+
+  const alignClass = computed(() => {
+    if (!props.template) {
+      return ''
+    }
+
+    return alignClasses[props.align] ?? ''
+  })
+
   const style = (cls: string) => {
     // If the template name is a string then we can use it to get the styles.
     if (typeof props.template === "string") {
@@ -164,23 +199,15 @@
     return payload
   })
 
-  watchEffect(() => {
-    emit('update:modelValue', amount.model.value);
-  })
-
-  onMounted(() => {
-    watch(() => amount.value,
-      (val, pre_val) => {
-        // Emit change event
-        emit(
-          "change",
-          amount.value.toFixed(money.value!.precision),
-          val,
-          pre_val
-        )
-        // Check if sign to changed.
-        signChange(val, pre_val)
-      }
+  watch(() => amount.value, (val, pre_val) => {
+    // Emit change event
+    emit(
+      "change",
+      amount.value.toFixed(money.value!.precision),
+      val,
+      pre_val
     )
+    // Check if sign to changed.
+    signChange(val, pre_val)
   })
 </script>
